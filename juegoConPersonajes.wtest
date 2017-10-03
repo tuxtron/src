@@ -1,0 +1,43 @@
+import juegosConPersonales.*
+
+
+test "1"{
+	luisa.asignarPersonaje(mario)
+	luisa.aparece(aurora)
+	luisa.aparece(castillo)
+	assert.equals(45,mario.valorRecolectado())
+	assert.equals(true,mario.estaFeliz())	
+}
+
+test "2"{
+	luisa.asignarPersonaje(mario)
+	floki.arma(jabalina)
+	luisa.aparece(tipa)
+	luisa.asignarPersonaje(floki)
+	luisa.aparece(aurora)
+	luisa.aparece(castillo)
+	assert.equals(16,mario.valorRecolectado())
+	assert.equals(9,tipa.altura())
+	assert.equals(false,mario.estaFeliz())
+	assert.equals(false,aurora.estaViva())
+	//assert.equals(150,castillo.defensa())
+	//assert.equals(false,jabalina.estaCargada())
+}
+
+test "3"{
+	floki.arma(ballesta)
+	luisa.asignarPersonaje(floki)
+	luisa.aparece(aurora)
+	luisa.aparece(castillo)
+	assert.equals(0,mario.valorRecolectado())
+	assert.equals(true,aurora.estaViva())
+	assert.equals(146,castillo.defensa())
+	assert.equals(true,ballesta.estaCargada())
+	assert.equals(8,ballesta.cantidadDeFlechas())
+}
+
+//test "4"{
+//	assert.throwsExceptionWithMessage(
+//		"No Tengo Personaje", luisa.aparece(aurora)
+//	
+//}

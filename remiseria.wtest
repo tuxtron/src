@@ -1,0 +1,140 @@
+import remiseria.*
+
+test "puntoB" {
+	var cachito = new Corsa()
+	cachito.color(rojo)
+	var corsaRojo = new Corsa()
+	corsaRojo.color(rojo)
+	var corsaNegro = new Corsa()
+	corsaNegro.color(negro)
+	var autoStandar = new Standar()
+	autoStandar.agregarTanque()
+	var autoDistinto = new AutosDistintos(1200,160,beige,5)
+	var remiseria1 = new Remiseria()
+	remiseria1.agregarAFlota(cachito)
+	remiseria1.agregarAFlota(corsaRojo)
+	remiseria1.agregarAFlota(corsaNegro)
+	remiseria1.agregarAFlota(autoStandar)
+	remiseria1.agregarAFlota(autoDistinto)
+	
+	var standar1 = new Standar()
+	var standar2 = new Standar()	
+	var standar3 = new Standar()
+	standar1.agregarTanque()
+	trafic.motor(motorBataton)
+	trafic.interior(interiorComodo)
+
+	var remiseria2 = new Remiseria()
+	remiseria2.agregarAFlota(cachito)
+	remiseria2.agregarAFlota(standar1)
+	remiseria2.agregarAFlota(standar2)
+	remiseria2.agregarAFlota(standar3)
+	remiseria2.agregarAFlota(trafic)
+	
+	assert.equals(6450,remiseria1.pesoTotalFlota())
+	assert.equals(10250,remiseria2.pesoTotalFlota())
+	assert.equals(false,remiseria1.esRecomendable())
+	assert.equals(false,remiseria2.esRecomendable())
+	assert.equals(5,remiseria1.capacidadTotalYendoA(140))
+	assert.equals(4,remiseria2.capacidadTotalYendoA(140))
+	assert.equals(beige,remiseria1.colorDelAutoMasRapido())
+	assert.equals(rojo,remiseria2.colorDelAutoMasRapido())
+	
+}
+
+test "puede hacer un viaje"{
+	var cachito = new Corsa()
+	cachito.color(rojo)
+	var corsaRojo = new Corsa()
+	corsaRojo.color(rojo)
+	var corsaNegro = new Corsa()
+	corsaNegro.color(negro)
+	var autoStandar = new Standar()
+	autoStandar.agregarTanque()
+	var autoDistinto = new AutosDistintos(1200,160,beige,5)
+	var remiseria1 = new Remiseria()
+	remiseria1.agregarAFlota(cachito)
+	remiseria1.agregarAFlota(corsaRojo)
+	remiseria1.agregarAFlota(corsaNegro)
+	remiseria1.agregarAFlota(autoStandar)
+	remiseria1.agregarAFlota(autoDistinto)
+	
+	var viajeCorto = new Viajes()
+	viajeCorto.kilometros(10)
+	viajeCorto.tiempoMaximo(1)
+	viajeCorto.cantidadPasajeros(4)
+	viajeCorto.coloresIncompatibles(rojo)
+	viajeCorto.coloresIncompatibles(beige)
+	viajeCorto.coloresIncompatibles(negro)
+
+
+	assert.equals(false,remiseria1.puedeHacerUnViaje(viajeCorto))	
+}
+
+test "auto mas rapido"{
+		
+	var standar1 = new Standar()
+	var corsaRojo = new Corsa()
+	corsaRojo.color(rojo)
+	var autoDistinto = new AutosDistintos(1200,160,beige,5)
+	standar1.agregarTanque()
+	trafic.motor(motorBataton)
+	trafic.interior(interiorComodo)
+
+	var remiseria2 = new Remiseria()
+	remiseria2.agregarAFlota(standar1)
+	remiseria2.agregarAFlota(corsaRojo)
+	remiseria2.agregarAFlota(autoDistinto)
+	remiseria2.agregarAFlota(trafic)
+	
+	assert.equals(autoDistinto,remiseria2.autoMasRapido())
+	assert.equals(beige,remiseria2.colorDelAutoMasRapido())
+}
+
+test "viajes que hizo"{
+	var corsaRojo = new Corsa()
+	corsaRojo.color(rojo)
+	var remiseria = new Remiseria()
+	remiseria.agregarAFlota(corsaRojo)
+	var viajeCorto = new Viajes()
+	viajeCorto.kilometros(10)
+	viajeCorto.tiempoMaximo(1)
+	viajeCorto.cantidadPasajeros(3)
+	var viajeCorto2 = new Viajes()
+	viajeCorto2.kilometros(12)
+	viajeCorto2.tiempoMaximo(3)
+	viajeCorto2.cantidadPasajeros(2)
+	remiseria.registrarViaje(viajeCorto,corsaRojo)
+	assert.equals(1,remiseria.cuantosViajesHizoElAuto(corsaRojo))
+	assert.equals(10,viajeCorto.kilometros())
+	assert.equals(0,remiseria.cuantosViajesHizoDeMAsDeKM(11))
+	assert.equals(1,remiseria.lugaresLibres())
+	remiseria.registrarViaje(viajeCorto2,corsaRojo)
+	assert.equals(2,remiseria.cuantosViajesHizoElAuto(corsaRojo))
+	assert.equals(1,remiseria.cuantosViajesHizoDeMAsDeKM(11))
+	assert.equals(3,remiseria.lugaresLibres())
+	
+}
+
+test "precio por viaje"{
+	var corsaRojo = new Corsa()
+	corsaRojo.color(rojo)
+	var remiseria = new Remiseria()
+	remiseria.agregarAFlota(corsaRojo)
+	var viajeCorto = new Viajes()
+	viajeCorto.kilometros(2)
+	viajeCorto.tiempoMaximo(1)
+	viajeCorto.cantidadPasajeros(3)
+	var viajeCorto2 = new Viajes()
+	viajeCorto2.kilometros(12)
+	viajeCorto2.tiempoMaximo(3)
+	viajeCorto2.cantidadPasajeros(2)
+	remiseria.valorPorKilometro(14)
+	remiseria.precioMinimo(50)
+	remiseria.registrarViaje(viajeCorto,corsaRojo)
+	assert.equals(30, remiseria.cuantoPagar(corsaRojo))
+	remiseria.registrarViaje(viajeCorto2,corsaRojo)
+	assert.equals(198,remiseria.cuantoPagar(corsaRojo))
+	
+	
+}

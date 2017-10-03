@@ -1,0 +1,107 @@
+import cuentasBancarias.*
+
+
+
+test "depositar cuenta pepe"{
+	pepe.depositar(1000)
+	assert.equals(1000,pepe.saldo())
+}
+
+test "estraer cuenta pepe"{
+	pepe.depositar(1000)
+	pepe.extraer(1000)
+	assert.equals(0,pepe.saldo())
+}
+
+test "depositar cuenta julian"{
+	julian.depositar(1000)
+	assert.equals(800,julian.saldo())
+}
+
+test "extraer cuenta julian"{
+	julian.depositar(1000)
+	julian.extraer(700)
+	assert.equals(95,julian.saldo())
+}
+
+test "depositar cuenta papa"{
+	papa.depositar(1700)
+	assert.equals(1700,papa.saldo())
+}
+
+test "extraer cuenta papa"{
+	papa.depositar(1700)
+	papa.extraer(1700)
+	assert.equals(0,papa.saldo())
+}
+
+test "parte 2"{
+	pepe.depositar(8000)
+	julian.depositar(15000)
+	papa.depositar(45300)
+	combinada.pertenezco(pepe,julian)
+	casa.cuentaAUsar(combinada)
+	casa.comprar(plancha)
+	casa.comprar(cama)
+	assert.equals(10795,casa.saldo())
+	assert.equals(true,casa.puedeComprar(heladera))
+}
+
+test "parte 3"{
+	pepe.depositar(8000)
+	julian.depositar(15000)
+	papa.depositar(45300)
+	combinada.pertenezco(pepe,julian)
+	casa.cuentaAUsar(combinada)
+	casa.comprar(plancha)
+	casa.comprar(cama)
+	assert.equals(10795,casa.cuentaParaGastos().saldo())
+	assert.equals(10795,julian.saldo())
+	casa.cuentaAUsar(papa)
+	//assert.equals(45300,casa.saldo())
+	assert.equals(true, casa.puedeComprar(heladera))
+	casa.cuentaAUsar(julian)
+	casa.comprar(fideos)
+	assert.equals(10740,casa.saldo())
+}
+
+
+test "tiene comida"{
+	pepe.depositar(8000)
+	julian.depositar(15000)
+	papa.depositar(45300)
+	combinada.pertenezco(pepe,julian)
+	casa.cuentaAUsar(combinada)
+	casa.comprar(plancha)
+	casa.comprar(cama)
+	assert.equals(false,casa.tieneComida())
+	casa.comprar(fideos)
+	assert.equals(true,casa.tieneComida())
+}
+
+test "ultima Comprada"{
+	pepe.depositar(8000)
+	julian.depositar(15000)
+	papa.depositar(45300)
+	combinada.pertenezco(pepe,julian)
+	casa.cuentaAUsar(combinada)
+	casa.comprar(plancha)
+	casa.comprar(cama)
+	assert.equals(false,casa.vieneDeEquiparse()
+	)
+}
+
+test " es derrochona y es bacan"{
+	pepe.depositar(8000)
+	julian.depositar(15000)
+	papa.depositar(45300)
+	combinada.pertenezco(pepe,julian)
+	casa.cuentaAUsar(combinada)
+	casa.comprar(plancha)
+	casa.comprar(cama)
+	assert.equals(false,casa.esBacan())
+	assert.equals(true,casa.esDerrochona())
+}
+
+
+

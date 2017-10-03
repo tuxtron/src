@@ -1,0 +1,21 @@
+import sueldoPepe.*
+
+test "suedo pepe gerente con 1 falta"{
+	pepe.categoria(gerente)
+	pepe.sindicato(comprometido)
+	pepe.bono(bonoNormal)
+	pepe.faltas(1)
+	assert.equals(14350,pepe.sueldo())
+}
+
+test "sueldo de roque sindicalizado"{
+	roque.sindicato(porcentual)
+	assert.equals(36660,roque.sueldo())
+}
+
+test "sueldo de ernesto con pepe compañero"{
+	ernesto.companero(roque)
+	ernesto.bono(bonoNormal)
+	ernesto.faltas(0)
+	assert.equals(30000,ernesto.sueldo())
+}

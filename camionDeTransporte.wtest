@@ -1,0 +1,64 @@
+import camiondeTransporte.*
+
+test "peso"{
+	assert.equals(1000000,camion.pesoTotal())
+	camion.cargar(knightRider)
+	camion.cargar(bumblebee)
+	assert.equals(1001300,camion.pesoTotal())
+	
+}
+
+test "objetos peligrosos"{
+	camion.cargar(knightRider)
+	camion.cargar(bumblebee)
+	assert.equals(false,camion.objetosPeligrosos(20))
+}
+
+test "objeto mas peligroso que"{
+	camion.cargar(paqueteDeLadrillos)
+	bateria.Antiaerea.colocarMisil()
+	camion.cargar(bateriaAntiaerea)
+	assert.equals(false,camion.objetosMasPeligrososQue(bateriaAntiaerea()))
+}
+
+test "transformar a bumblebee"{
+	assert.equals(30,bumblebee.nivelDePeligrosidad())
+	bumblebee.convertirAuto()
+	assert.equals(15,bumblebee.nivelDePeligrosidad())
+}
+
+test "peso residuos radiactivos"{
+		residuosRadiactivos.peso(100)
+		assert.equals(100,residuosRadiactivos.peso())
+}
+
+test" peso embalaje de peligrosidad"{
+	residuosRadiactivos.peso(100)
+	embalajeDePeligrosidad.agregar(residuosRadiactivos)
+	assert.equals(100,embalajeDePeligrosidad.peso())
+}
+
+test "camion puede circular en ruta"{
+	paqueteDeLadrillos.cantidad(30)
+	camion.cargar(paqueteDeLadrillos)
+	assert.equals(false,camion.puedeCircularEnRuta(20))
+}
+
+test " ejercicio "{
+	paqueteDeLadrillos.cantidad(30)
+	camion.cargar(paqueteDeLadrillos)
+	contenedorPortuario.agregar(knightRider)
+	contenedorPortuario.agregar(bumblebee)
+	bateriaAntiaerea.colocarMisil()
+	contenedorPortuario.agregar(bateriaAntiaerea)
+	residuosRadiactivos.peso(100)
+	embalajeDePeligrosidad.agregar(residuosRadiactivos)
+	camion.cargar(contenedorPortuario)
+	camion.cargar(embalajeDePeligrosidad)
+	assert.equals(1001560,camion.pesoTotal())
+	assert.equals(false,camion.excedidoDePeso())
+	assert.equals(false,camion.objetosMasPeligrososQue(bumblebee))
+	assert.equals(true,camion.puedeCircularEnRuta(20))
+
+	
+}

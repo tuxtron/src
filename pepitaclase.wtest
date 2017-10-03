@@ -1,0 +1,34 @@
+import pepita.*
+
+test "test rutina pesada"{
+	pepita.cansadaSi({energia => energia < 50 })
+	pepita.cuandoEstesCansadaHace({pepita.error("Estoy Cansada")})
+	
+	entrenador.rutina({ ave =>
+		ave.comer(1)
+		ave.volar(100)
+	})
+	
+	entrenador.repeticiones(10)
+	
+	assert.throwsExceptionWithMessage(
+		"Estoy Cansada",
+		{entrenador.entrenar(pepita)}
+	)
+}
+
+test "pepita no se cansa"{
+	pepita.cansadaSi({ energia => false	})
+	pepita.cuandoEstesCansadaHace({pepita.error("Estoy Cansada")})
+	
+	entrenador.rutina({ave =>
+		ave.comer(1)
+		ave.volar(100)
+	})
+	
+	entrenador.repeticiones(10)
+	entrenador.entrenar(pepita)
+	
+	
+	assert.that(pepita.energia() < 0 )
+}
